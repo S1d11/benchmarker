@@ -1,0 +1,18 @@
+id: url_parser
+name: Fix URL query string parser
+description: |
+  A tiny URL query parser has two bugs:
+  1. Repeated keys overwrite previous values instead of collecting a list.
+  2. `+` signs in query values are not decoded to spaces.
+  Fix `parse_query` in `url.py` and `unquote` in `utils.py` so that
+  `parse_query('a=1&a=2&b=hello+world')` returns `{'a': ['1', '2'], 'b': ['hello world']}`.
+repository_path: repo
+verifier_path: verifier
+public_tests_path: repo/tests
+reference_patch_path: patches/correct
+mutation_target: url.py
+metadata:
+  category: bug_fix
+  language: python
+  difficulty: medium
+  risk: medium

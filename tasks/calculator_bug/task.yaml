@@ -1,0 +1,17 @@
+id: calculator_bug
+name: Fix calculator addition and division by zero
+description: |
+  The calculator has two bugs:
+  1. `add(a, b)` returns `a - b` instead of `a + b`.
+  2. `divide(a, b)` does not handle division by zero; it should raise `ValueError`.
+  Fix both issues.
+repository_path: repo
+verifier_path: verifier
+public_tests_path: repo/tests
+reference_patch_path: patches/correct
+mutation_target: calculator.py
+metadata:
+  category: bug_fix
+  language: python
+  difficulty: easy
+  risk: low
