@@ -49,10 +49,10 @@ class Sandbox:
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(file, dest)
 
-    def run(self, command: list[str], cwd: Path | None = None):
+    def run(self, command: list[str] | str, cwd: Path | None = None, shell: bool = False):
         import subprocess
         cwd = cwd or self.repo_path
-        return subprocess.run(command, cwd=cwd, capture_output=True, text=True)
+        return subprocess.run(command, cwd=cwd, capture_output=True, text=True, shell=shell)
 
     def cleanup(self):
         shutil.rmtree(self.root, ignore_errors=True)

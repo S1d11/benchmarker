@@ -11,6 +11,43 @@ verifier_path: verifier
 public_tests_path: repo/tests
 reference_patch_path: patches/correct
 mutation_target: url.py
+network_policy: offline
+rubric:
+  - name: behavioral_correctness
+    type: classical
+    blocker: true
+    weight: 3.0
+    config:
+      paths: [tests, verifier]
+  - name: reverse_classical_tests
+    type: reverse_classical
+    blocker: true
+    weight: 2.0
+    config:
+      min_new_tests: 1
+  - name: scope
+    type: scope
+    blocker: true
+    weight: 1.0
+    config:
+      allowed: [url.py, utils.py, tests/*]
+      denied: [verifier/*]
+      max_changed_files: 3
+      max_added_lines: 80
+      max_removed_lines: 40
+      max_total_lines: 120
+  - name: compile_check
+    type: command
+    blocker: true
+    weight: 1.0
+    config:
+      command: [python, -m, compileall, .]
+  - name: code_quality
+    type: prompt
+    blocker: false
+    weight: 0.0
+    config:
+      enabled: false
 metadata:
   category: bug_fix
   language: python

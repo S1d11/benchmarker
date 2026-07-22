@@ -10,6 +10,43 @@ verifier_path: verifier
 public_tests_path: repo/tests
 reference_patch_path: patches/correct
 mutation_target: calculator.py
+network_policy: offline
+rubric:
+  - name: behavioral_correctness
+    type: classical
+    blocker: true
+    weight: 3.0
+    config:
+      paths: [tests, verifier]
+  - name: reverse_classical_tests
+    type: reverse_classical
+    blocker: true
+    weight: 2.0
+    config:
+      min_new_tests: 1
+  - name: scope
+    type: scope
+    blocker: true
+    weight: 1.0
+    config:
+      allowed: [calculator.py, tests/*]
+      denied: [verifier/*]
+      max_changed_files: 2
+      max_added_lines: 50
+      max_removed_lines: 20
+      max_total_lines: 70
+  - name: compile_check
+    type: command
+    blocker: true
+    weight: 1.0
+    config:
+      command: [python, -m, compileall, .]
+  - name: code_quality
+    type: prompt
+    blocker: false
+    weight: 0.0
+    config:
+      enabled: false
 metadata:
   category: bug_fix
   language: python
